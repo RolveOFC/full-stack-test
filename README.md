@@ -56,8 +56,10 @@ CREATE TABLE "Users" (
   "id" SERIAL PRIMARY KEY,
   "username" VARCHAR(255) NOT NULL,
   "password" VARCHAR(255) NOT NULL
-);
-
+4. Inicie o servidor:
+   ```sh
+   node index.js
+   ```
 ##Orientações do Banco SQL
 
 -- crie a database e o usuário
@@ -65,10 +67,11 @@ create database appdb;
 create user rolveuser with password '1234';
 
 -- tive que dar permissao para o usuário rolveuser acessar a database appdb
--- sem isso nao conseguia usar o projeto
-GRANT CONNECT ON DATABASE appdb TO rolveuser;
-GRANT USAGE ON SCHEMA public TO rolveuser;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO rolveuser;
+3. Inicie o servidor Angular:
+   ```sh
+   ng serve
+   ```
+   O frontend estará disponível em `http://localhost:4200`.
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rolveuser;
 
 -- criei a tabela como tu mandou
@@ -119,7 +122,11 @@ alter table "Users" add column "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TI
 - [https://punkapi.online/v3/beers](https://punkapi.online/v3/beers)
 
 ---
-
+  Content-Type: application/json
+  {
+    "username": "usuario",
+    "password": "senha"
+  }
 ## Usuário de teste
 
 - Usuário: **admin**
