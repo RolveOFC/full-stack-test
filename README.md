@@ -74,7 +74,7 @@ create user rolveuser with password '1234';
    O frontend estará disponível em `http://localhost:4200`.
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rolveuser;
 
--- criei a tabela como tu mandou
+-- criei a tabela
 CREATE TABLE "Users" ( 
   "id" SERIAL PRIMARY KEY, 
   "username" VARCHAR(255) NOT NULL, 
