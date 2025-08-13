@@ -137,11 +137,6 @@ curl --location 'http://localhost:3000/user' \
 - [https://punkapi.online/v3/beers](https://punkapi.online/v3/beers)
 
 ---
-  Content-Type: application/json
-  {
-    "username": "usuario",
-    "password": "senha"
-  }
 ## Usuário de teste
 
 - Usuário: **admin**
