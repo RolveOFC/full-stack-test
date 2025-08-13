@@ -45,7 +45,7 @@ CREATE TABLE "Users" (
 );
 
 -- Insira usuário de teste (a senha deve ser criptografada em produção)
-INSERT INTO "Users" (username, password) VALUES ('admin', '1234');
+INSERT INTO "Users" (username, password) VALUES ('admin', '$2b$10$WASCie8kOclPoqnqHWsvOu7zrRXo5DUsIAsNKAdxHxYtuBGQ12V62');
 ```
 
 ### 2. Configuração do Backend
