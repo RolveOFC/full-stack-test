@@ -25,27 +25,12 @@ Este projeto implementa um sistema de autenticação com Angular no frontend e N
 
 1. Acesse a pasta do backend.
 2. Instale as dependências:
-   ```sh
-   npm install
-   ```
-   Configure o arquivo `.env` com:
-   ```
-   DB_PORT=5432
-   DB_USER=rolveuser
-   DB_PASS=1234
    PORT=3000
    JWT_SECRET=4321
    ```
    - Certifique-se de que o PostgreSQL está instalado e rodando localmente.
    - O backend irá rodar na porta `3000`.
 3. Inicie o servidor:
-   ```sh
-   node index.js
-   ```
-
-### Frontend
-
-1. Acesse a pasta do frontend.
 2. Instale as dependências:
    ```sh
    npm install
@@ -58,9 +43,11 @@ Este projeto implementa um sistema de autenticação com Angular no frontend e N
 
 ---
 
+
+
 ## Orientações do Banco SQL
 
-Para configurar o banco de dados PostgreSQL, execute os comandos abaixo:
+Para configurar o banco de dados PostgreSQL, execute os comandos abaixo em sequência:
 
 ```sql
 -- Crie a database e o usuário
@@ -73,16 +60,14 @@ GRANT USAGE ON SCHEMA public TO rolveuser;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO rolveuser;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rolveuser;
 
--- Crie a tabela de usuários
+-- Crie a tabela de usuários (incluindo colunas obrigatórias para o funcionamento do projeto)
 CREATE TABLE "Users" (
   "id" SERIAL PRIMARY KEY,
   "username" VARCHAR(255) NOT NULL,
-  "password" VARCHAR(255) NOT NULL
+  "password" VARCHAR(255) NOT NULL,
+  "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
--- Adicione colunas para datas de criação e atualização
-alter table "Users" add column "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
-alter table "Users" add column "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ```
 
 ---
@@ -101,16 +86,11 @@ alter table "Users" add column "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TI
 ## Testes de API
 
 - Os endpoints do backend podem ser testados via Postman.
-- Exemplo de login:
-  ```http
-  POST http://localhost:3000/user/login
-  Content-Type: application/json
-
-  {
-    "username": "usuario",
-    "password": "senha"
-  }
-  ```
+```sh
+curl --location 'http://localhost:3000/user' \
+--header 'Content-Type: application/json' \
+--data '{ "username": "usuario1", "password": "senha1" }'
+```
 
 ---
 
