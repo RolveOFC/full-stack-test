@@ -114,9 +114,9 @@ Content-Type: application/json
 ### Resposta Esperada
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE3NTUxMTgwNTcsImV4cCI6MTc1NTEyMTY1N30.LFb3XO3WnO2mzmwj8c1ZBSzNa6LAjqU3UKk50inRGNQ",
   "user": {
-    "id": 1,
+    "id": 12,
     "username": "admin"
   }
 }
