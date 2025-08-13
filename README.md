@@ -27,63 +27,30 @@ Este projeto implementa um sistema de autenticação com Angular no frontend e N
    ```sh
    npm install
    ```
-3. O arquivo `.env` já está presente na raiz do backend com as configurações abaixo:
-   ```
-   DB_HOST=localhost
    DB_PORT=5432
-   DB_NAME=appdb
    DB_USER=rolveuser
    DB_PASS=1234
    PORT=3000
    JWT_SECRET=4321
-
-  Script de criação das tabelas (PostgreSQL)
-
-  CREATE TABLE "Users" (
-  "id" SERIAL PRIMARY KEY,
-  "username" VARCHAR(255) NOT NULL,
-  "password" VARCHAR(255) NOT NULL
-);
    ```
    - Certifique-se de que o PostgreSQL está instalado e rodando localmente.
-   - Crie o banco de dados `appdb` e o usuário `rolveuser` com a senha `1234` antes de iniciar o backend.
    - O backend irá rodar na porta `3000`.
 
 4. Inicie o servidor:
-   ```sh
    node index.js
    ```
 
 ### Frontend
 
-1. Acesse a pasta do frontend.
 2. Instale as dependências:
    ```sh
    npm install
    ```
 3. Inicie o servidor Angular:
    ```sh
-   ng s --o
    ```
    O frontend estará disponível em `http://localhost:4200`.
-   ### Backend
 
-1. Acesse a pasta do backend.
-2. Instale as dependências:
-   ```sh
-   npm install
-   ```
-3. O arquivo `.env` já está presente na raiz do backend com as configurações abaixo:
-   ```
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_NAME=appdb
-   DB_USER=rolveuser
-   DB_PASS=1234
-   PORT=3000
-   JWT_SECRET=4321
-   ```
-   Script de criação das tabelas (PostgreSQL)
 ```sql
 CREATE TABLE "Users" (
   "id" SERIAL PRIMARY KEY,
@@ -91,31 +58,29 @@ CREATE TABLE "Users" (
   "password" VARCHAR(255) NOT NULL
 );
 
-   - Certifique-se de que o PostgreSQL está instalado e rodando localmente.
-   - Crie o banco de dados `appdb` e o usuário `rolveuser` com a senha `1234` antes de iniciar o backend.
-   - O backend irá rodar na porta `3000`.
+##Orientações do Banco SQL
 
-4. Inicie o servidor:
-   ```sh
-   node index.js
-   ```
+-- crie a database e o usuário
+create database appdb;
+create user rolveuser with password '1234';
 
-### Frontend
+-- tive que dar permissao para o usuário rolveuser acessar a database appdb
+-- sem isso nao conseguia usar o projeto
+GRANT CONNECT ON DATABASE appdb TO rolveuser;
+GRANT USAGE ON SCHEMA public TO rolveuser;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO rolveuser;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rolveuser;
 
-1. Acesse a pasta do frontend.
-2. Instale as dependências:
-   ```sh
-   npm install
-   ```
-3. Inicie o servidor Angular:
-   ```sh
-   ng s --o
-   ```
-   O frontend estará disponível em `http://localhost:4200`.
+-- criei a tabela como tu mandou
+CREATE TABLE "Users" ( 
+  "id" SERIAL PRIMARY KEY, 
+  "username" VARCHAR(255) NOT NULL, 
+  "password" VARCHAR(255) NOT NULL 
+);
 
-
-
-
+-- sem isso ele nao faz o insert
+alter table "Users" add column "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+alter table "Users" add column "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 ---
 
@@ -161,6 +126,5 @@ CREATE TABLE "Users" (
 - Senha: **1234**
 
 ---
-
 
 
