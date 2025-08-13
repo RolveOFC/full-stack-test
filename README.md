@@ -114,28 +114,6 @@ curl --location 'http://localhost:3000/user' \
 - Senha: **1234**
 
 ---
--- crie a database e o usuário
-create database appdb;
-create user rolveuser with password '1234';
-
--- tive que dar permissao para o usuário rolveuser acessar a database appdb
-3. Inicie o servidor Angular:
-   ```sh
-   ng serve
-   ```
-   O frontend estará disponível em `http://localhost:4200`.
-GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rolveuser;
-
--- criei a tabela
-CREATE TABLE "Users" ( 
-  "id" SERIAL PRIMARY KEY, 
-  "username" VARCHAR(255) NOT NULL, 
-  "password" VARCHAR(255) NOT NULL 
-);
-
--- sem isso ele nao faz o insert
-alter table "Users" add column "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
-alter table "Users" add column "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 ---
 
