@@ -99,10 +99,9 @@ Este projeto implementa um sistema de autenticação com Angular no frontend e N
 
 ## Usuário de teste
 
-- Usuário: **usuario**
-- Senha: **senha**
+- Usuário: **admin**
+- Senha: **1234**
 
 ---
 
-Qualquer dúvida, estou
 
