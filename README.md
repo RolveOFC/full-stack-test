@@ -85,33 +85,18 @@ CREATE TABLE "Users" (
 
 ## Testes de API
 
-- Os endpoints do backend podem ser testados via Postman.
 ```sh
 curl --location 'http://localhost:3000/user' \
---header 'Content-Type: application/json' \
---data '{ "username": "usuario1", "password": "senha1" }'
 ```
 
----
 
 ## Observações
 
-- Para cadastrar usuários, utilize o endpoint de registro do backend (se disponível).
-- O projeto demonstra integração entre frontend e backend, autenticação JWT e consumo de API externa.
-- O banco de dados utilizado é PostgreSQL; configure os dados de acesso conforme o arquivo `.env` acima.
 
----
 
 ## Punk API
 
-- [https://punkapi.online/v3/beers](https://punkapi.online/v3/beers)
 
----
-
-## Usuário de teste
-
-- Usuário: **admin**
-- Senha: **1234**
 
 ---
 
