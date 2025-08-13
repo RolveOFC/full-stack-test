@@ -1,0 +1,13 @@
+<div class="punk-list-container">
+  <div *ngFor="let beer of beers" class="beer-card">
+    <div class="beer-info">
+      <h3>{{ beer.name }}</h3>
+      <p class="tagline">{{ beer.tagline }}</p>
+    </div>
+  </div>
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="page === 1">Anterior</button>
+    <span>Página {{ page }}</span>
+    <button (click)="nextPage()">Próxima</button>
+  </div>
+</div>

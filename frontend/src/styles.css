@@ -1,0 +1,10 @@
+body {
+  background: url('/assets/beerBackground.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+
+body.punk-list-bg {
+  background: linear-gradient(135deg, #ffecae 0%, #43c6ac 100%) !important;
+  background-attachment: fixed;
+}
