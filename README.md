@@ -143,20 +143,3 @@ project/
 └── README.md
 ```
 
-## 🔧 Notas de Desenvolvimento
-
-- **Segurança**: Em produção, as senhas devem ser criptografadas com bcrypt
-- **CORS**: Configure o CORS corretamente para deploy em produção
-- **Ambiente**: Use arquivos `.env` diferentes para cada ambiente
-- **Tratamento de Erros**: Considere adicionar tratamento de erros mais abrangente
-- **Validação**: Adicione validação de entrada no frontend e backend
-
-## 🚀 Considerações para Deploy
-
-Para deploy em produção:
-
-1. **Variáveis de Ambiente**: Use gerenciamento seguro de variáveis
-2. **Banco de Dados**: Utilize serviço gerenciado de PostgreSQL
-3. **HTTPS**: Habilite certificados SSL/TLS
-4. **JWT Secret**: Use segredo JWT forte e aleatório
-5. **Criptografia de Senhas**: Implemente criptografia adequada com bcrypt
