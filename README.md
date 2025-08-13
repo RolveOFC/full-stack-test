@@ -1,205 +1,162 @@
+# Sistema de Autenticação de Cervejas
 
+Uma aplicação web full-stack que implementa autenticação de usuários com tokens JWT e exibe uma lista paginada de cervejas da Punk API. Desenvolvida com Angular no frontend, Node.js/Express no backend e banco de dados PostgreSQL.
 
+## 🚀 Funcionalidades
 
-# Teste Estágio - Sistema de Autenticação e Listagem de Cervejas
+- **Autenticação JWT**: Sistema seguro de login/logout de usuários
+- **Rotas Protegidas**: Lista de cervejas acessível apenas para usuários autenticados
+- **Listagem Paginada de Cervejas**: Navegação pelas cervejas da Punk API com paginação
+- **Design Responsivo**: Interface adaptada para dispositivos móveis
+- **Tratamento de Erros**: Mensagens amigáveis para tentativas de login inválidas
 
-## Descrição
-Este projeto implementa um sistema de autenticação com Angular no frontend e Node.js (Express) no backend, utilizando PostgreSQL como banco de dados. O usuário realiza login, acessa uma lista paginada de cervejas da Punk API e pode fazer logout. O acesso à listagem é protegido por autenticação JWT.
+## 🛠️ Tecnologias Utilizadas
 
-## Tecnologias Utilizadas
-- Angular (frontend)
-- Node.js + Express (backend)
-- PostgreSQL (banco de dados)
-- JWT (autenticação)
-- CSS (estilização)
-- Postman (testes de API)
+| Frontend | Backend         | Banco de Dados | Outros           |
+|----------|----------------|----------------|------------------|
+| Angular  | Node.js + Express | PostgreSQL     | JWT, CSS, Postman |
 
-## Como Rodar o Projeto
+## 📋 Pré-requisitos
 
-### Backend
-1. Acesse a pasta `backend`.
-2. Instale as dependências:
-   ```sh
-   npm install
-   ```
-3. Configure o arquivo `.env`:
-   ```env
-   PORT=3000
-   JWT_SECRET=4321
-   DB_PORT=5432
-   DB_USER=rolveuser
-   DB_PASS=1234
-   ```
-   - Certifique-se de que o PostgreSQL está instalado e rodando localmente.
-   - O backend irá rodar na porta `3000`.
-4. Inicie o servidor:
-   ```sh
-   node index.js
-   ```
+Antes de rodar este projeto, certifique-se de ter:
 
-### Frontend
-1. Acesse a pasta `frontend`.
-2. Instale as dependências:
-   ```sh
-   npm install
-   ```
-3. Inicie o servidor Angular:
-   ```sh
-   ng serve
-   ```
-   O frontend estará disponível em [http://localhost:4200](http://localhost:4200).
+- Node.js (v14 ou superior)
+- PostgreSQL instalado e em execução
+- Angular CLI (`npm install -g @angular/cli`)
 
-## Configuração do Banco de Dados PostgreSQL
+## 🏃‍♂️ Guia Rápido
 
-Execute os comandos abaixo para configurar o banco de dados:
+### 1. Configuração do Banco de Dados
+
+Primeiro, crie o banco de dados e o usuário:
 
 ```sql
--- Crie a database e o usuário
-create database appdb;
-create user rolveuser with password '1234';
+-- Conecte-se ao PostgreSQL como superusuário
+CREATE DATABASE appdb;
+CREATE USER rolveuser WITH PASSWORD '1234';
+GRANT ALL PRIVILEGES ON DATABASE appdb TO rolveuser;
 
--- Permissões para o usuário
-GRANT CONNECT ON DATABASE appdb TO rolveuser;
-GRANT USAGE ON SCHEMA public TO rolveuser;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO rolveuser;
-GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rolveuser;
-
--- Crie a tabela de usuários
+-- Conecte-se à appdb e crie a tabela de usuários
+\c appdb
 CREATE TABLE "Users" (
   "id" SERIAL PRIMARY KEY,
-  "username" VARCHAR(255) NOT NULL,
-  "password" VARCHAR(255) NOT NULL,
-  "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "username" VARCHAR(255) NOT NULL UNIQUE,
+  "password" VARCHAR(255) NOT NULL
 );
+
+-- Insira usuário de teste (a senha deve ser criptografada em produção)
+INSERT INTO "Users" (username, password) VALUES ('admin', '1234');
 ```
 
-## Funcionalidades
-- Autenticação de usuário via JWT
-- Proteção de rotas: apenas usuários autenticados acessam a lista de cervejas
-- Listagem paginada de cervejas da Punk API
-- Logout
-- Mensagens de erro para login inválido
-- Estilização responsiva
+### 2. Configuração do Backend
 
-## Testes de API
-- Os endpoints do backend podem ser testados via Postman.
-- Exemplo de login com curl:
-  ```sh
-  curl --location 'http://localhost:3000/user' \
-    --header 'Content-Type: application/json' \
-    --data '{ "username": "usuario1", "password": "senha1" }'
-  ```
-- Exemplo de login via POST:
-  ```
-  POST http://localhost:3000/user/login
-  Body: { "username": "usuario", "password": "senha" }
-  ```
+```bash
+# Acesse o diretório backend
+cd backend
 
-## Observações
-- Para cadastrar usuários, utilize o endpoint de registro do backend (se disponível).
-- O projeto demonstra integração entre frontend e backend, autenticação JWT e consumo de API externa.
-- O banco de dados utilizado é PostgreSQL; configure os dados de acesso conforme o arquivo `.env` acima.
+# Instale as dependências
+npm install
 
-## Punk API
-- [https://punkapi.online/v3/beers](https://punkapi.online/v3/beers)
-
-## Usuário de Teste
-- Usuário: **admin**
-- Senha: **1234**
-## Descrição
-
-Este projeto implementa um sistema de autenticação com Angular no frontend e Node.js (Express) no backend, utilizando PostgreSQL como banco de dados. O usuário realiza login, acessa uma lista paginada de cervejas da Punk API e pode fazer logout. O acesso à listagem é protegido por autenticação JWT.
-
----
-
-## Tecnologias utilizadas
-
-- Angular (frontend)
-- Node.js + Express (backend)
-- PostgreSQL (banco de dados)
-- Postman (testes de API)
-- JWT (autenticação)
-- CSS (estilização)
-
----
-
-## Como rodar o projeto
-
-### Backend
-
-1. Acesse a pasta do backend.
-2. Instale as dependências:
-   PORT=3000
-   JWT_SECRET=4321
-   ```
-   - Certifique-se de que o PostgreSQL está instalado e rodando localmente.
-   - O backend irá rodar na porta `3000`.
-3. Inicie o servidor:
-2. Instale as dependências:
-   ```sh
-   npm install
-   ```
-curl --location 'http://localhost:3000/user' \
---data '{ "username": "usuario1", "password": "senha1" }'
+# Inicie o servidor
+node index.js
 ```
 
-## Observações
+O backend estará disponível em `http://localhost:3000`
 
-- Para cadastrar usuários, utilize o endpoint de registro do backend (se disponível).
-- O projeto demonstra integração entre frontend e backend, autenticação JWT e consumo de API externa.
-- O banco de dados utilizado é PostgreSQL; configure os dados de acesso conforme o arquivo `.env` acima.
----
+**Variáveis de Ambiente** (já configuradas no `.env`):
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=appdb
+DB_USER=rolveuser
+DB_PASS=1234
+PORT=3000
+JWT_SECRET=4321
+```
 
-## Punk API
----
-## Usuário de teste
+### 3. Configuração do Frontend
 
-- Usuário: **admin**
+```bash
+# Acesse o diretório frontend (em um novo terminal)
+cd frontend
 
+# Instale as dependências
+npm install
 
+# Inicie o servidor de desenvolvimento Angular
+ng serve --open
+```
 
-## Punk API
+O frontend estará disponível em `http://localhost:4200` e abrirá automaticamente no navegador.
 
+## 🔐 Credenciais de Teste
 
-- Autenticação de usuário via JWT.
-- Proteção de rotas: apenas usuários autenticados acessam a lista de cervejas.
-- Listagem paginada de cervejas da Punk API.
-- Logout.
-- Mensagens de erro para login inválido.
-- Estilização responsiva.
+Utilize estas credenciais para testar a aplicação:
 
----
+- **Usuário**: `admin`
+- **Senha**: `1234`
 
-## Testes de API
+## 🧪 Testes de API
 
-- Os endpoints do backend podem ser testados via Postman.
-- Exemplo de login:
-  ```
-  POST http://localhost:3000/user/login
-  Body: { "username": "usuario", "password": "senha" }
-  ```
+Você pode testar os endpoints do backend usando Postman ou curl:
 
----
+### Endpoint de Login
+```http
+POST http://localhost:3000/user/login
+Content-Type: application/json
 
-## Observações
+{
+  "username": "admin",
+  "password": "1234"
+}
+```
 
-- Para cadastrar usuários, utilize o endpoint de registro do backend (se disponível).
-- O projeto demonstra integração entre frontend e backend, autenticação JWT e consumo de API externa.
-- O banco de dados utilizado é PostgreSQL; configure os dados de acesso conforme o arquivo `.env` acima.
+### Resposta Esperada
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": 1,
+    "username": "admin"
+  }
+}
+```
 
----
+## 📡 API Externa
 
-## Punk API
+Este projeto consome a Punk API para dados de cervejas:
+- **Endpoint**: [https://punkapi.online/v3/beers](https://punkapi.online/v3/beers)
+- **Documentação**: Disponível no link acima
 
-- [https://punkapi.online/v3/beers](https://punkapi.online/v3/beers)
+## 🏗️ Estrutura do Projeto
 
----
-## Usuário de teste
+```
+project/
+├── frontend/          # Aplicação Angular
+│   ├── src/
+│   ├── package.json
+│   └── angular.json
+├── backend/           # API Node.js/Express
+│   ├── index.js
+│   ├── .env
+│   └── package.json
+└── README.md
+```
 
-- Usuário: **admin**
-- Senha: **1234**
+## 🔧 Notas de Desenvolvimento
 
----
+- **Segurança**: Em produção, as senhas devem ser criptografadas com bcrypt
+- **CORS**: Configure o CORS corretamente para deploy em produção
+- **Ambiente**: Use arquivos `.env` diferentes para cada ambiente
+- **Tratamento de Erros**: Considere adicionar tratamento de erros mais abrangente
+- **Validação**: Adicione validação de entrada no frontend e backend
 
+## 🚀 Considerações para Deploy
 
+Para deploy em produção:
+
+1. **Variáveis de Ambiente**: Use gerenciamento seguro de variáveis
+2. **Banco de Dados**: Utilize serviço gerenciado de PostgreSQL
+3. **HTTPS**: Habilite certificados SSL/TLS
+4. **JWT Secret**: Use segredo JWT forte e aleatório
+5. **Criptografia de Senhas**: Implemente criptografia adequada com bcrypt
